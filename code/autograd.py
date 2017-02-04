@@ -27,6 +27,7 @@ class Autograd(object):
         needed for the gradient (indexed by register name), as
         returned by eval.
         """
+        
         for (dstName,funName,inputNames) in self.optimizeForBProp(opseq):
             delta = deltaDict[dstName]
             if TRACE_BP: print 'bprop [',delta,']',dstName,'=',funName,inputNames
@@ -36,6 +37,7 @@ class Autograd(object):
             for i in range(len(inputNames)):
                 if TRACE_BP: print ' -',dstName,'->',funName,'-> (...',inputNames[i],'...)'
                 result = (BP_FUNS[funName][i])(*values)
+                
                 # increment a running sum of all the delta's that are
                 # pushed back to the i-th parameter, initializing the
                 # zero if needed.
